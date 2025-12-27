@@ -160,7 +160,6 @@ class MinimaxAgent(MultiAgentSearchAgent):
         gameState.isLose():
         Returns whether or not the game state is a losing state
         """
-        "*** YOUR CODE HERE ***"
 
         def minimax(gameState, depth, agentIndex):
             if gameState.isWin() or gameState.isLose() or depth == self.depth:
@@ -199,11 +198,57 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
     """
 
     def getAction(self, gameState: GameState):
-        """
-        Returns the minimax action using self.depth and self.evaluationFunction
-        """
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+        def alphabeta(gameState, depth, agentIndex, alpha, beta):
+            if gameState.isWin() or gameState.isLose() or depth == self.depth:
+                return self.evaluationFunction(gameState)
+
+            # Pacman (MAX)
+            if agentIndex == 0:
+                maxEval = -float("inf")
+                bestAction = None
+
+                for action in gameState.getLegalActions(agentIndex):
+                    successor = gameState.generateSuccessor(agentIndex, action)
+                    eval = alphabeta(successor, depth, 1, alpha, beta)
+
+                    if eval > maxEval:
+                        maxEval = eval
+                        if depth == 0:
+                            bestAction = action
+
+                    alpha = max(alpha, maxEval)
+
+                    if alpha > beta:
+                        break  # cut-off
+
+                if depth == 0:
+                    return bestAction
+                return maxEval
+
+            else:  # ghosts (MIN)
+                nextAgent = agentIndex + 1
+                nextDepth = depth
+
+                if nextAgent == gameState.getNumAgents():
+                    nextAgent = 0
+                    nextDepth += 1
+
+                minEval = float("inf")
+
+                for action in gameState.getLegalActions(agentIndex):
+                    successor = gameState.generateSuccessor(agentIndex, action)
+                    eval = alphabeta(successor, nextDepth, nextAgent, alpha, beta)
+
+                    minEval = min(minEval, eval)
+                    beta = min(beta, minEval)
+
+                    if beta < alpha:
+                        break  # cut-off
+
+                return minEval
+
+        return alphabeta(gameState, 0, 0, -float("inf"), float("inf"))
 
 
 class ExpectimaxAgent(MultiAgentSearchAgent):
