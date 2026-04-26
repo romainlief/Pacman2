@@ -2,7 +2,7 @@
 
 ## Description
 
-Tis is an implementation of the second project from the CS188 course at UC Berkeley, focusing on multi-agent game playing using minimax and alpha-beta pruning algorithms,and many other AI techniques. The project involves creating intelligent agents to play the Pacman game, optimizing their strategies to maximize scores while avoiding ghosts.
+This is an implementation of the second project from the CS188 course at UC Berkeley, focusing on multi-agent game playing using minimax and alpha-beta pruning algorithms,and many other AI techniques. The project involves creating intelligent agents to play the Pacman game, optimizing their strategies to maximize scores while avoiding ghosts.
 Link to the CS188 course: [Pacman 2](https://inst.eecs.berkeley.edu/~cs188/fa25/projects/proj2/#q1-3-pts-finding-a-fixed-food-dot-using-depth-first-search)
 
 ## Dependencies
